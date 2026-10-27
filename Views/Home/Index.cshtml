@@ -1,0 +1,63 @@
+@model HomePageModel
+@{
+    ViewData["Title"] = "";
+    var p = Model.Profile;
+}
+
+<partial name="_Hero" model="p" />
+<partial name="_About" model="p" />
+<partial name="_Experience" model="p.Jobs" />
+<partial name="_Work" model="p.Work" />
+<partial name="_Practice" model="p.Checklist" />
+<partial name="_Skills" model="p.Skills" />
+<partial name="_Education" model="p" />
+
+<section class="section section--contact" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+        <div class="row gy-5 gx-lg-5">
+            <div class="col-lg-5">
+                <h2 class="section-title" id="contact-title">Get in touch</h2>
+                <p class="section-intro">
+                    Hiring for a .NET role, need an accessibility review, or want to compare notes on design systems?
+                    Send a message or reach me directly.
+                </p>
+
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-list__label">Email</span>
+                        <a href="mailto:@p.Email">@p.Email</a>
+                    </li>
+                    <li>
+                        <span class="contact-list__label">Phone</span>
+                        <a href="@p.PhoneHref">@p.Phone</a>
+                    </li>
+                    <li>
+                        <span class="contact-list__label">LinkedIn</span>
+                        <a href="@p.LinkedInUrl" rel="noopener">linkedin.com/in/nikhil-m-3b159315a</a>
+                    </li>
+                    <li>
+                        <span class="contact-list__label">Resume</span>
+                        <a href="@p.ResumePath" download>Download resume <span class="file-meta">(Word document, 20 KB)</span></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-7">
+                @if (Model.SentTo is not null)
+                {
+                    <div class="form-success" id="form-success" role="status" tabindex="-1">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9.5 16.2-4.2-4.2-1.4 1.4 5.6 5.6 12-12-1.4-1.4z" /></svg>
+                        <p><strong>Thanks, @Model.SentTo.</strong> Your message was received, and I'll reply to the email address you gave.</p>
+                    </div>
+                }
+                <partial name="_ContactForm" model="Model.Contact" />
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

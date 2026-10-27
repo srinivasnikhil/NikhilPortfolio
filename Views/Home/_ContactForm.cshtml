@@ -1,0 +1,68 @@
+@model ContactMessage
+@{
+    // Server-side errors (only when JS is off or validation was bypassed).
+    var fieldOrder = new[] { "Name", "Email", "Company", "Message" };
+    var serverErrors = fieldOrder
+        .Where(key => ViewData.ModelState.TryGetValue(key, out var entry) && entry.Errors.Count > 0)
+        .Select(key => (Field: key, Text: ViewData.ModelState[key]!.Errors[0].ErrorMessage))
+        .ToList();
+}
+
+<form class="contact-form" asp-controller="Home" asp-action="Contact" method="post"
+      aria-labelledby="form-title" novalidate>
+    <h3 class="form-title" id="form-title">Send a message</h3>
+    <p class="form-note">All fields are required unless marked optional.</p>
+
+    <div class="error-summary" id="error-summary" tabindex="-1" aria-labelledby="error-summary-title"
+         hidden="@(serverErrors.Count == 0)">
+        <h4 class="error-summary__title" id="error-summary-title">There is a problem</h4>
+        <ul class="error-summary__list">
+            @foreach (var error in serverErrors)
+            {
+                <li><a href="#@error.Field">@error.Text</a></li>
+            }
+        </ul>
+    </div>
+
+    <div class="field">
+        <label asp-for="Name" class="field__label"></label>
+        <span asp-validation-for="Name" class="field__error" id="Name-msg"></span>
+        <input asp-for="Name" class="field__input" autocomplete="name" aria-required="true"
+               aria-describedby="Name-msg" aria-invalid="@(ViewData.ModelState["Name"]?.Errors.Count > 0 ? "true" : "false")">
+    </div>
+
+    <div class="field">
+        <label asp-for="Email" class="field__label"></label>
+        <span class="field__hint" id="Email-hint">I'll only use this to reply.</span>
+        <span asp-validation-for="Email" class="field__error" id="Email-msg"></span>
+        <input asp-for="Email" type="email" class="field__input" autocomplete="email" spellcheck="false"
+               aria-required="true" aria-describedby="Email-hint Email-msg"
+               aria-invalid="@(ViewData.ModelState["Email"]?.Errors.Count > 0 ? "true" : "false")">
+    </div>
+
+    <div class="field">
+        <label asp-for="Company" class="field__label">Company <span class="field__optional">(optional)</span></label>
+        <span asp-validation-for="Company" class="field__error" id="Company-msg"></span>
+        <input asp-for="Company" class="field__input" autocomplete="organization" aria-describedby="Company-msg">
+    </div>
+
+    <div class="field">
+        <label asp-for="Message" class="field__label"></label>
+        <span class="field__hint" id="Message-hint">Between 10 and 1,500 characters.</span>
+        <span asp-validation-for="Message" class="field__error" id="Message-msg"></span>
+        <textarea asp-for="Message" class="field__input field__input--area" rows="6" maxlength="1500"
+                  aria-required="true" aria-describedby="Message-hint Message-msg"
+                  aria-invalid="@(ViewData.ModelState["Message"]?.Errors.Count > 0 ? "true" : "false")"></textarea>
+        <span class="field__count" id="Message-count" aria-hidden="true">0 / 1,500</span>
+    </div>
+
+    @* Honeypot for spam bots. Hidden from everyone, including screen readers. *@
+    <div class="hp" aria-hidden="true">
+        <label for="Website">Leave this field empty</label>
+        <input asp-for="Website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button type="submit" class="button button--solid button--submit">
+        <span class="button__label">Send message</span>
+    </button>
+</form>

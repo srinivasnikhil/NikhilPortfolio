@@ -1,0 +1,28 @@
+@model Profile
+
+<section class="section" id="about" aria-labelledby="about-title">
+    <div class="container">
+        <div class="row gy-5 gx-lg-5">
+            <div class="col-lg-4">
+                <h2 class="section-title" id="about-title">About</h2>
+                <dl class="facts">
+                    @foreach (var fact in Model.QuickFacts)
+                    {
+                        <div class="facts__row">
+                            <dt>@fact.Term</dt>
+                            <dd>@fact.Detail</dd>
+                        </div>
+                    }
+                </dl>
+            </div>
+            <div class="col-lg-8">
+                <div class="prose">
+                    @foreach (var paragraph in Model.About)
+                    {
+                        <p>@paragraph</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

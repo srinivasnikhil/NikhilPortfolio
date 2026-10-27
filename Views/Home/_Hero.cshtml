@@ -1,0 +1,90 @@
+@model Profile
+
+<section class="hero" aria-labelledby="hero-name">
+    <div class="container">
+        <div class="hero__grid">
+            <div class="hero__copy">
+                <h1 class="hero__name" id="hero-name">
+                    <span class="hero__line">Nikhil</span>
+                    <span class="hero__line">Mallempati</span>
+                </h1>
+                <p class="hero__role">@Model.Headline</p>
+                <p class="hero__lede">
+                    I build .NET applications for banks, health agencies and government programs,
+                    and I make sure they work for people using a keyboard, a screen reader or a
+                    screen zoomed to 200%.
+                </p>
+                <div class="hero__actions">
+                    <a class="button button--solid" href="#contact">Contact me</a>
+                    <a class="button button--line" href="@Model.ResumePath" download>
+                        Download resume <span class="file-meta">(Word, 20 KB)</span>
+                    </a>
+                </div>
+            </div>
+
+            <figure class="kbd-demo" aria-labelledby="kbd-demo-caption">
+                @* The mock form is decorative, so assistive tech skips it and gets the caption instead. *@
+                <div class="kbd-demo__window" aria-hidden="true">
+                    <div class="kbd-demo__titlebar">
+                        <span class="kbd-demo__dots"><i></i><i></i><i></i></span>
+                        <span>Request a callback</span>
+                    </div>
+
+                    <div class="kbd-demo__form">
+                        <div class="demo-stop" data-stop="1"
+                             data-say="Full name, edit text, required. Maria Lopez">
+                            <span class="demo-stop__num">1</span>
+                            <span class="demo-label">Full name <small>(required)</small></span>
+                            <span class="demo-input">Maria Lopez</span>
+                        </div>
+
+                        <div class="demo-stop" data-stop="2"
+                             data-say="Email, edit text, required, invalid entry. Enter an email like name@example.com">
+                            <span class="demo-stop__num">2</span>
+                            <span class="demo-label">Email <small>(required)</small></span>
+                            <span class="demo-input demo-input--invalid">maria@@</span>
+                            <span class="demo-error">
+                                <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm1 15h-2v-2h2v2Zm0-4h-2V9h2v4Z" /></svg>
+                                Enter an email like name@example.com
+                            </span>
+                        </div>
+
+                        <div class="demo-stop" data-stop="3"
+                             data-say="Best way to reach you, grouping. Email, radio button, checked, 1 of 2">
+                            <span class="demo-stop__num">3</span>
+                            <span class="demo-label">Best way to reach you</span>
+                            <span class="demo-radios">
+                                <span class="demo-radio is-checked">Email</span>
+                                <span class="demo-radio">Phone</span>
+                            </span>
+                        </div>
+
+                        <div class="demo-stop demo-stop--button" data-stop="4"
+                             data-say="Request callback, button">
+                            <span class="demo-stop__num">4</span>
+                            <span class="demo-button">Request callback</span>
+                        </div>
+
+                        <span class="demo-ring"></span>
+                        <span class="demo-key">Tab</span>
+                    </div>
+
+                    <div class="kbd-demo__speech">
+                        <span class="kbd-demo__speaker">NVDA says</span>
+                        <span class="kbd-demo__said" id="demo-said">Full name, edit text, required. Maria Lopez</span>
+                    </div>
+                </div>
+
+                <figcaption id="kbd-demo-caption" class="kbd-demo__caption">
+                    How I test a form: keyboard focus moves through each control in order while a screen reader
+                    reads out its name, role, state and any error.
+                </figcaption>
+
+                <div class="kbd-demo__controls">
+                    <button type="button" class="chip-btn" id="demo-play" hidden>Pause demo</button>
+                    <button type="button" class="chip-btn" id="demo-next" hidden>Next stop</button>
+                </div>
+            </figure>
+        </div>
+    </div>
+</section>

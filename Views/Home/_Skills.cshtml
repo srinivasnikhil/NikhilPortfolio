@@ -1,0 +1,31 @@
+@model IReadOnlyList<SkillGroup>
+
+<section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="container">
+        <h2 class="section-title" id="skills-title">Skills</h2>
+        <p class="section-intro">The tools I use day to day, grouped by where they sit in the stack.</p>
+
+        <div class="skill-filter" role="group" aria-label="Show skills for" hidden>
+            <button type="button" class="chip-btn" data-filter="all" aria-pressed="true">Everything</button>
+            @foreach (var group in Model)
+            {
+                <button type="button" class="chip-btn" data-filter="@group.Key" aria-pressed="false">@group.Label</button>
+            }
+        </div>
+
+        <div class="skill-groups">
+            @foreach (var group in Model)
+            {
+                <div class="skill-group" data-group="@group.Key">
+                    <h3 class="skill-group__title">@group.Label</h3>
+                    <ul class="skill-list">
+                        @foreach (var skill in group.Items)
+                        {
+                            <li>@skill</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</section>

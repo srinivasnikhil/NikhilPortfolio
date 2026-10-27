@@ -1,0 +1,29 @@
+@model StatusPageModel
+@{
+    var notFound = Model.Code == 404;
+    ViewData["Title"] = notFound ? "Page not found" : "Something went wrong";
+}
+
+<article class="page page--status">
+    <div class="container">
+        <div class="page__body">
+            <p class="status-code" aria-hidden="true">@Model.Code</p>
+            <h1 class="page__title">@ViewData["Title"]</h1>
+
+            @if (notFound)
+            {
+                <p class="page__lede">That address doesn't match a page on this site. It may have moved, or there's a typo in the link.</p>
+            }
+            else
+            {
+                <p class="page__lede">The server couldn't finish that request. Try again in a minute.</p>
+                @if (!string.IsNullOrEmpty(Model.RequestId))
+                {
+                    <p>If you contact me about this, include reference <code>@Model.RequestId</code>.</p>
+                }
+            }
+
+            <p><a class="button button--solid" href="~/">Go to the home page</a></p>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,58 @@
+@model IReadOnlyList<Job>
+
+<section class="section section--alt" id="experience" aria-labelledby="experience-title">
+    <div class="container">
+        <h2 class="section-title" id="experience-title">Experience</h2>
+        <p class="section-intro">Ten years across banking, healthcare, government and public safety, most recent first.</p>
+
+        @*
+            Without JavaScript every panel is shown in order and the tab list stays hidden.
+            site.js turns this into an ARIA tabs widget (arrow keys, Home/End).
+        *@
+        <div class="jobs" data-tabs>
+            <div class="jobs__tabs" role="tablist" aria-label="Employers" aria-orientation="vertical" hidden>
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var job = Model[i];
+                    <button type="button" class="jobs__tab" role="tab"
+                            id="tab-@job.Slug" aria-controls="panel-@job.Slug"
+                            aria-selected="@(i == 0 ? "true" : "false")"
+                            tabindex="@(i == 0 ? "0" : "-1")">
+                        <span class="jobs__tab-company">@job.Company</span>
+                        <span class="jobs__tab-dates">@job.Dates</span>
+                    </button>
+                }
+                <span class="jobs__marker" aria-hidden="true"></span>
+            </div>
+
+            <div class="jobs__panels">
+                @foreach (var job in Model)
+                {
+                    <div class="job" id="panel-@job.Slug">
+                        <header class="job__head">
+                            <h3 class="job__title" id="title-@job.Slug">
+                                @job.Role <span class="job__at">at @job.Company</span>
+                            </h3>
+                            <p class="job__meta">
+                                <span>@job.Dates</span>
+                                <span>@job.Location</span>
+                            </p>
+                        </header>
+                        <ul class="job__points">
+                            @foreach (var point in job.Highlights)
+                            {
+                                <li>@point</li>
+                            }
+                        </ul>
+                        <ul class="tags" aria-label="Technologies used at @job.Company">
+                            @foreach (var tech in job.Stack)
+                            {
+                                <li>@tech</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

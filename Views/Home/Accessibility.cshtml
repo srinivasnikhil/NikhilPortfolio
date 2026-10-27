@@ -1,0 +1,66 @@
+@model Profile
+@{
+    ViewData["Title"] = "Accessibility statement";
+    ViewData["Description"] = "How this portfolio meets WCAG 2.1 AA and Section 508, how it was tested, and how to report a problem.";
+}
+
+<article class="page">
+    <div class="container">
+        <div class="page__body">
+            <nav aria-label="Breadcrumb" class="crumbs">
+                <ol>
+                    <li><a href="~/">Home</a></li>
+                    <li><a aria-current="page" asp-action="Accessibility">Accessibility statement</a></li>
+                </ol>
+            </nav>
+
+            <h1 class="page__title">Accessibility statement</h1>
+            <p class="page__lede">
+                I want everyone to be able to use this site, including people who navigate by keyboard,
+                use a screen reader, magnify the screen or are sensitive to motion.
+            </p>
+
+            <h2>Conformance</h2>
+            <p>
+                This site is built to meet the <a href="https://www.w3.org/TR/WCAG21/" rel="noopener">Web Content Accessibility Guidelines (WCAG) 2.1</a>
+                at level AA, which is also the standard referenced by the revised
+                <a href="https://www.section508.gov/" rel="noopener">Section 508</a> requirements.
+            </p>
+
+            <h2>What the site does</h2>
+            <ul>
+                <li>A skip link, landmark regions and one logical heading outline on every page.</li>
+                <li>Everything works with a keyboard alone, with a high-visibility focus indicator.</li>
+                <li>Text and controls meet AA contrast in both the light and dark themes.</li>
+                <li>A <strong>Reduce motion</strong> switch in the header stops all animation. Your system's reduced-motion setting is respected automatically.</li>
+                <li>The animated demo at the top of the home page can be paused, and stepped through one stop at a time.</li>
+                <li>Pages reflow at 320 pixels wide and stay readable with text zoomed to 200%.</li>
+                <li>Form fields have visible labels; errors are listed in a summary, linked to each field and announced to screen readers.</li>
+                <li>The site works without JavaScript. Tabs and expanding sections fall back to plain content.</li>
+            </ul>
+
+            <h2>How it was tested</h2>
+            <ul>
+                <li>Keyboard only, in Chrome, Firefox and Edge.</li>
+                <li>NVDA with Firefox and Chrome on Windows.</li>
+                <li>WAVE and axe automated checks.</li>
+                <li>Browser zoom at 200% and 400%, and a 320 pixel viewport.</li>
+            </ul>
+
+            <h2>Known limitations</h2>
+            <p>
+                The downloadable resume is a Word document. If you need it in another format, such as a tagged PDF or plain text,
+                email me and I'll send one.
+            </p>
+
+            <h2>Report a problem</h2>
+            <p>
+                If something on this site is hard to use, I'd like to hear about it.
+                Email <a href="mailto:@Model.Email?subject=Accessibility%20feedback">@Model.Email</a>
+                and I'll aim to fix it within five business days.
+            </p>
+
+            <p class="page__updated">Last reviewed: October 2026</p>
+        </div>
+    </div>
+</article>

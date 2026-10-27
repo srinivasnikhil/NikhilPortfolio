@@ -1,0 +1,30 @@
+@model Profile
+
+<section class="section section--alt" id="education" aria-labelledby="education-title">
+    <div class="container">
+        <div class="row gy-5 gx-lg-5">
+            <div class="col-lg-6">
+                <h2 class="section-title" id="education-title">Education</h2>
+                <ul class="plain-list">
+                    @foreach (var degree in Model.Education)
+                    {
+                        <li class="degree">
+                            <h3 class="degree__name">@degree.Name</h3>
+                            <p class="degree__school">@degree.School</p>
+                            <p class="degree__years">@degree.Years</p>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title" id="certs-title">Certifications</h2>
+                <ul class="plain-list certs" aria-labelledby="certs-title">
+                    @foreach (var cert in Model.Certifications)
+                    {
+                        <li>@cert</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

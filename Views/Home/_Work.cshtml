@@ -1,0 +1,54 @@
+@model IReadOnlyList<CaseStudy>
+
+<section class="section" id="work" aria-labelledby="work-title">
+    <div class="container">
+        <h2 class="section-title" id="work-title">Selected work</h2>
+        <p class="section-intro">
+            A few things I've built and what changed because of them. Client names are from contract engagements.
+        </p>
+
+        <ul class="cases">
+            @foreach (var item in Model)
+            {
+                <li class="case">
+                    <article aria-labelledby="case-@item.Slug">
+                        <div class="case__row">
+                            <div class="case__name">
+                                <h3 class="case__title" id="case-@item.Slug">@item.Title</h3>
+                                <p class="case__client">@item.Client</p>
+                            </div>
+                            <p class="case__result">@item.Result</p>
+                            <button type="button" class="case__toggle" aria-expanded="true"
+                                    aria-controls="case-body-@item.Slug" hidden>
+                                <span class="case__toggle-text">Details</span>
+                                <span class="visually-hidden">: @item.Title</span>
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5h2v14h-2zM5 11h14v2H5z" /></svg>
+                            </button>
+                        </div>
+
+                        <div class="case__body" id="case-body-@item.Slug">
+                            <div class="case__inner">
+                                <dl class="case__detail">
+                                    <div>
+                                        <dt>The problem</dt>
+                                        <dd>@item.Problem</dd>
+                                    </div>
+                                    <div>
+                                        <dt>What I built</dt>
+                                        <dd>@item.Built</dd>
+                                    </div>
+                                </dl>
+                                <ul class="tags" aria-label="Technologies">
+                                    @foreach (var tag in item.Tags)
+                                    {
+                                        <li>@tag</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

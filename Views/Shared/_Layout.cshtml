@@ -1,0 +1,118 @@
+@{
+    var title = ViewData["Title"] as string;
+    var pageTitle = string.IsNullOrEmpty(title)
+        ? "Nikhil Mallempati, Senior Full Stack .NET Developer"
+        : $"{title} | Nikhil Mallempati";
+    var description = ViewData["Description"] as string
+        ?? "Senior full stack .NET developer building accessible, WCAG 2.1 AA and Section 508 compliant applications for banking, healthcare and government.";
+}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@pageTitle</title>
+    <meta name="description" content="@description">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f3f5f6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f151c" media="(prefers-color-scheme: dark)">
+    <meta property="og:title" content="@pageTitle">
+    <meta property="og:description" content="@description">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="~/img/favicon.svg" type="image/svg+xml">
+
+    <link rel="preload" href="~/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="~/fonts/atkinson-hyperlegible-next-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+
+    @* Runs before first paint so a saved dark theme doesn't flash light. *@
+    <script src="~/js/prefs.js" asp-append-version="true"></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <div class="read-progress" aria-hidden="true"><span class="read-progress__bar"></span></div>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg" aria-label="Main">
+            <div class="container">
+                <a class="brand" href="~/">
+                    <span class="brand__mark" aria-hidden="true">NM</span>
+                    <span class="brand__name">Nikhil Mallempati</span>
+                </a>
+
+                <button class="navbar-toggler menu-btn" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#site-nav"
+                        aria-controls="site-nav" aria-expanded="false">
+                    <span class="menu-btn__icon" aria-hidden="true"></span>
+                    Menu
+                </button>
+
+                <div class="collapse navbar-collapse" id="site-nav">
+                    <ul class="navbar-nav ms-lg-auto site-nav">
+                        <li class="nav-item"><a class="nav-link" href="~/#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/#experience">Experience</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/#work">Work</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/#practice">Accessibility</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="~/#contact">Contact</a></li>
+                    </ul>
+
+                    <div class="prefs" role="group" aria-label="Display preferences">
+                        <button type="button" class="pref-toggle" id="theme-toggle" aria-pressed="false">
+                            <svg class="pref-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" />
+                            </svg>
+                            Dark theme
+                        </button>
+                        <button type="button" class="pref-toggle" id="motion-toggle" aria-pressed="false">
+                            <svg class="pref-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <rect x="6" y="5" width="4" height="14" rx="1" />
+                                <rect x="14" y="5" width="4" height="14" rx="1" />
+                            </svg>
+                            Reduce motion
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer__grid">
+                <p class="site-footer__name">
+                    Nikhil Mallempati<br>
+                    <span>Senior Full Stack .NET Developer</span>
+                </p>
+                <ul class="site-footer__links">
+                    <li><a href="mailto:nikhilsm0606@gmail.com">Email</a></li>
+                    <li><a href="https://www.linkedin.com/in/nikhil-m-3b159315a" rel="noopener">LinkedIn</a></li>
+                    <li><a asp-controller="Home" asp-action="Accessibility">Accessibility statement</a></li>
+                </ul>
+            </div>
+            <p class="site-footer__note">
+                Built with ASP.NET Core MVC, Bootstrap and jQuery. Checked with a keyboard, NVDA and WAVE.
+                &copy; @DateTime.Now.Year Nikhil Mallempati.
+            </p>
+        </div>
+    </footer>
+
+    <button type="button" class="to-top" id="to-top" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5 5 12h4.5v7h5v-7H19z" /></svg>
+        <span>Back to top</span>
+    </button>
+
+    <div id="announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
