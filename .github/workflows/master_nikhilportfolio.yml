@@ -55,6 +55,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DAD1E68DFEF494196BD56445B59225F }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EE3F084FADEC4C2AB0090A712A8B8A11 }}
 
+      - name: Ensure Azure Web App is running
+        shell: pwsh
+        run: |
+          $resourceGroup = az resource list --name 'nikhilportfolio' --resource-type 'Microsoft.Web/sites' --query "[0].resourceGroup" -o tsv
+          if (-not $resourceGroup) {
+            throw "Could not determine resource group for app 'nikhilportfolio'."
+          }
+          az webapp start --name 'nikhilportfolio' --resource-group $resourceGroup
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
